@@ -39,6 +39,7 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.apiguardian:apiguardian-api:1.1.2'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
