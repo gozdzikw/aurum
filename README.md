@@ -35,15 +35,30 @@ cd aurum
 ./gradlew bootRun
 ```
 
-###  4. Running tests
+### 3. Check application state
+
+```bash
+http://localhost:8080/actuator/health
+```
+
+## Tests & database
+
+### 1. Running tests
 
 ```bash
 ./gradlew test iT
+```
+### 2. Check database console
+
+```bash
+  http://localhost:8080/h2-console
 ```
 
 ## API Endpoints
 
 # 1. Create account
+
+Request
 ```bash
 POST /accounts
 ```
@@ -72,3 +87,57 @@ curl -X POST http://localhost:8080/accounts \
   -H "Content-Type: application/json" \
   -d '{"firstName":"John","lastName":"Doe","initialBalance":999}'
 ```
+
+# 2. Get account balance
+
+Request
+```bash
+GET /accounts/{accountId}
+```
+Response
+```json
+{
+  "accountId": 1,
+  "userId": 1,
+  "firstName": "John",
+  "lastName": "Doe",
+  "balancePLN": 999,
+  "balanceUSD": 0
+}
+```
+cURL example
+```bash
+curl http://localhost:8080/accounts/1
+```
+# 3. Exchange currency
+
+Request
+```bash
+POST /api/exchange
+```
+Request body:
+```json
+{
+  "accountId": 1,
+  "from": "PLN",
+  "to": "USD",
+  "amount": 500
+}
+```
+Response
+```json
+{
+  "accountId":1,
+  "balancePLN":500.00,
+  "balanceUSD":138.08,
+  "rate":3.6210
+}
+```
+cURL example
+```bash
+curl -X POST http://localhost:8080/api/exchange \
+  -H "Content-Type: application/json" \
+  -d '{"accountId":1,"from":"PLN","to":"USD","amount":500}'
+```
+
+
