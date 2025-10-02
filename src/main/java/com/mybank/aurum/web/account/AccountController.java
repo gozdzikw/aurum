@@ -1,6 +1,6 @@
 package com.mybank.aurum.web.account;
 
-import com.mybank.aurum.domain.account.InsufficientFundsException;
+import com.mybank.aurum.application.account.AccountNotFoundException;
 import com.mybank.aurum.domain.account.dto.AccountCreateRequest;
 import com.mybank.aurum.domain.account.dto.AccountResponse;
 import com.mybank.aurum.application.account.AccountService;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 
 @RestController
 @RequestMapping("/accounts")
@@ -41,6 +40,13 @@ public class AccountController {
 
     @ExceptionHandler(UserAlreadyHasAccountException.class)
     public ResponseEntity<String> handleUserAlreadyHasAccount(UserAlreadyHasAccountException ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(ex.getMessage());
+    }
+
+    @ExceptionHandler(AccountNotFoundException.class)
+    public ResponseEntity<String> handleMissingAccount(AccountNotFoundException ex) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(ex.getMessage());

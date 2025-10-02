@@ -1,6 +1,5 @@
 package com.mybank.aurum.application.exchange.dto;
 
-
 import com.mybank.aurum.domain.account.Currency;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

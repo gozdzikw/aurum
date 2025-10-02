@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
-//TODO ver1
 @Service
 public class AccountService {
 
@@ -60,9 +59,8 @@ public class AccountService {
 
     public AccountResponse getAccount(Long id) {
 
-        //TODO change exeption
         Account account = accountRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(() -> new AccountNotFoundException("Account not found."));
 
         User user = account.getUser();
 
